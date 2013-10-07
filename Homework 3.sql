@@ -112,6 +112,17 @@ order by c.city asc
 
 -- 9
 
+select c.name, c.city
+from customers c
+where c.city in(
+	select city
+	from (
+		select c.name, c.city, count(p.city)
+		from products p, customers c
+		where c.city = p.city
+		group by c.name, c.city, p.city
+		order by count(p.city) asc
+		limit 1) sub1)
 
 -- 10
 
@@ -143,9 +154,8 @@ order by dollars asc
 -- This is incorrect
 -- It shows all the customers except c005
 -- Not sure how to use the coalesce function
-select c.name, sum(o.dollars)
-from customers c, orders o
-where c.cid = o.cid
+select c.name, coalesce( sum(o.dollars), 0 )
+from customers c left outer join orders o on c.cid = o.cid
 group by c.name, c.cid
 order by c.name asc
 
