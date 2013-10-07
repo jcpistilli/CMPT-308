@@ -114,43 +114,46 @@ order by c.city asc
 
 select c.name, c.city
 from customers c
-where c.city in(
-	select city
-	from (
-		select c.name, c.city, count(p.city)
-		from products p, customers c
-		where c.city = p.city
-		group by c.name, c.city, p.city
-		order by count(p.city) asc
-		limit 1) sub1)
+where c.city in
+	(select city
+	 from 
+		(select c.name, c.city, count(p.city)
+		 from products p, customers c
+		 where c.city = p.city
+		 group by c.name, c.city, p.city
+		 order by count(p.city) asc
+		 limit 1) sub1)
 
 -- 10
 
 select c.name, c.city
 from customers c
-where c.city in(
-	select city
-	from (
-		select c.name, c.city, count(p.city)
-		from products p, customers c
-		where c.city = p.city
-		group by c.name, c.city, p.city
-		order by count(p.city) desc
-		limit 1) sub1)
+where c.city in
+	(select city
+	 from 
+		(select c.name, c.city, count(p.city)
+		 from products p, customers c
+		 where c.city = p.city
+		 group by c.name, c.city, p.city
+		 order by count(p.city) desc
+		 limit 1) sub1)
 
 -- 11
-
+-- Could not get the correct output
+-- On the right track but not sure how to make it display
 select c.name, c.city
-from customers c
-where c.city in(
-	select city
-	from (
-		select c.name, c.city, count(p.city)
-		from products p, customers c
-		where c.city = p.city
-		group by c.name, c.city, p.city
-		order by count(p.city) desc
-		) sub1)
+from customers c,
+     products p
+where c.city = p.city
+  AND c.city in
+     (select count(city) as "CityCount"
+			       from products
+			       group by city
+			       having count(city) in
+		(select max("CityCount")
+			from (select count(city) as "CityCount"
+				from products
+				group by city)sub1))
 
 -- 12
 
