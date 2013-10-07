@@ -223,7 +223,8 @@ where c.cid = o.cid
   AND p.pid = o.pid
 
 -- 17
-
+-- When you run the query from number 16 after inserting this data,
+	-- it will show an error in the dollars column
 INSERT INTO Orders( ordno, mon, cid, aid, pid, qty, dollars )
   VALUES(1027, 'jan', 'c001', 'a01', 'p01', 1000, 550.00);
 
