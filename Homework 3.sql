@@ -151,9 +151,7 @@ order by dollars asc
 
 
 -- 14
--- This is incorrect
--- It shows all the customers except c005
--- Not sure how to use the coalesce function
+
 select c.name, coalesce( sum(o.dollars), 0 )
 from customers c left outer join orders o on c.cid = o.cid
 group by c.name, c.cid
