@@ -25,7 +25,6 @@ where c.cid = 'c002'
 
 
 -- 3
--- This first one gets the pids in order and I'm not sure
 select pid
 from products
 where pid in
@@ -114,10 +113,26 @@ order by c.city asc
 
 
 
+-- 10
+
+
+
+-- 11
 
 
 
 
+-- 12
+
+select p.name as "Product Name" 
+from products p
+group by p.name
+having avg(priceUSD) > (select avg(priceUSD)
+			from products)
+order by p.name asc
+
+
+-- 13
 
 
 
