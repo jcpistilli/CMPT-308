@@ -21,19 +21,26 @@ from products
 where pid in
 	(select pid
 	 from orders
-	 where aid =
+	 where aid in
 		(select aid
 		 from agents
-		 where city = 'Tokyo'))
+		 where aid in
+			(select aid
+			 from orders
+			 where cid in
+				(select cid
+				 from customers
+				 where city = 'Kyoto'))))
 
 -- 3
-
+-- WRONGGGGGG
 select cid, name
 from customers
 where cid in
 	(select cid
 	 from orders
 	 where aid != 'a03')
+
 
 -- 4
 
