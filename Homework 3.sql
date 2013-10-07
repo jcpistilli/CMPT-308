@@ -126,11 +126,31 @@ where c.city in(
 
 -- 10
 
-
+select c.name, c.city
+from customers c
+where c.city in(
+	select city
+	from (
+		select c.name, c.city, count(p.city)
+		from products p, customers c
+		where c.city = p.city
+		group by c.name, c.city, p.city
+		order by count(p.city) desc
+		limit 1) sub1)
 
 -- 11
 
-
+select c.name, c.city
+from customers c
+where c.city in(
+	select city
+	from (
+		select c.name, c.city, count(p.city)
+		from products p, customers c
+		where c.city = p.city
+		group by c.name, c.city, p.city
+		order by count(p.city) desc
+		) sub1)
 
 -- 12
 
@@ -172,8 +192,14 @@ where a.city = 'New York'
 
 -- 16
 
+select o.dollars, (o.qty * p.priceUSD * (1-c.discount/100)) as "Calculated Price"
+from orders o, 
+     products p, 
+     customers c
+where c.cid = o.cid
+  AND p.pid = o.pid
 
-
+-- 17
 
 
 
