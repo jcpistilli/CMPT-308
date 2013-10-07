@@ -134,6 +134,14 @@ order by p.name asc
 
 -- 13
 
+select c.name, o.pid, o.dollars
+from customers as c, orders as o
+where c.cid = o.cid
+order by dollars asc
+
+
+-- 14
+
 
 
 
