@@ -155,6 +155,26 @@ where c.city = p.city
 				from products
 				group by city)sub1))
 
+-- I tried to continue working on 11
+-- This displayed information but it displayed the wrong information
+-- The subqueries (select count ..... sub2) display 3 and 3, which would represent Newark and Dallas
+-- I'm just not sure how to relate that back to a query that just returns the names of customers
+	-- and cities where the most products are made
+select c.name, c.city
+from customers c, products p
+where c.city = p.city
+  AND c.city in
+	(select c.city
+	 from
+		(select count(city) as "CityCount"
+			       from products
+			       group by city
+			       having count(city) in
+			(select max("CityCount")
+			 from (select count(city) as "CityCount"
+				from products
+				group by city)sub1)) sub2)
+
 -- 12
 
 select p.name as "Product Name" 
