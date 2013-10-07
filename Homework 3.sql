@@ -25,10 +25,7 @@ where c.cid = 'c002'
 
 
 -- 3
-<<<<<<< HEAD
-=======
 -- This first one gets the pids in order and I'm not sure
->>>>>>> f68b260e581f058b7bdee5b47b94fac2d4310df2
 select pid
 from products
 where pid in
@@ -151,6 +148,21 @@ from customers c, orders o
 where c.cid = o.cid
 group by c.name, c.cid
 order by c.name asc
+
+
+-- 15
+
+select distinct c.name, p.name, a.name
+from customers c,
+     products p,
+     orders o,
+     agents a
+where a.city = 'New York'
+  AND c.cid = o.cid
+  AND o.aid = a.aid
+  AND o.pid = p.pid
+
+-- 16
 
 
 
