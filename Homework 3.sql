@@ -137,14 +137,20 @@ order by p.name asc
 -- 13
 
 select c.name, o.pid, o.dollars
-from customers as c, orders as o
+from customers c, orders o
 where c.cid = o.cid
 order by dollars asc
 
 
 -- 14
-
-
+-- This is incorrect
+-- It shows all the customers except c005
+-- Not sure how to use the coalesce function
+select c.name, sum(o.dollars)
+from customers c, orders o
+where c.cid = o.cid
+group by c.name, c.cid
+order by c.name asc
 
 
 
