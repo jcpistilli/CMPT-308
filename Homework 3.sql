@@ -25,7 +25,7 @@ where c.cid = 'c002'
 
 
 -- 3
--- This first one gets the pids in order and I'm not sure
+
 select pid
 from products
 where pid in
@@ -201,6 +201,8 @@ where c.cid = o.cid
 
 -- 17
 
+INSERT INTO Orders( ordno, mon, cid, aid, pid, qty, dollars )
+  VALUES(1027, 'jan', 'c001', 'a01', 'p01', 1000, 550.00);
 
 
 
